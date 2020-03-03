@@ -1,0 +1,39 @@
+---
+    -
+        name: Configure master
+        hosts: all
+        become: true
+        tasks:
+            - import_tasks: configure-docker.yaml
+            - import_tasks: configure-k8s.yaml
+            -
+                name: Initialize Kubernetes cluster  # noqa: 301
+                command:
+                    cmd: >-
+                        kubeadm init --node-name="k8s-master" --apiserver-cert-extra-sans={{ node_ip }}
+                         --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address={{ node_ip }}
+            -
+                name: Setup kubeconfig for vagrant user  # noqa: 301
+                command:
+                    cmd: "{{ item }}"
+                with_items:
+                    - mkdir -p /home/vagrant/.kube
+                    - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+                    - chown vagrant:vagrant /home/vagrant/.kube/config
+            -
+                name: Install calico pod network
+                become: false
+                command:  # noqa: 301
+                    cmd: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+            -
+                name: Generate join command  # noqa: 301
+                command:
+                    cmd: kubeadm token create --print-join-command
+                register: join_command
+            -
+                name: Copy join command to local file
+                delegate_to: localhost
+                become: false
+                copy:
+                    content: "{{ join_command.stdout_lines[0] }}"
+                    dest: "./join_command.sh"
