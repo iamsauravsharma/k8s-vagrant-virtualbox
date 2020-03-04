@@ -1,13 +1,13 @@
 # local-k8s-cluster-vagrant-ansible
 
-Local kubernetes cluster with master and node setup using vagrant and ansible for local development and testing
+Local kubernetes cluster with master and worker node setup using vagrant and ansible for local development and testing
 
 ## Prerequisites
 - Ansible
-- Minimum 8 GB of RAM
+- Minimum 8 GB of RAM (For default 3 VM instance with default configuration)
 - Vagrant
 - Virtualbox
-- Minimum 40 GB of Disk space
+- Minimum 40 GB of Disk space (For default 10 GB and 3 VM instance custom VM count and size needs different space)
 
 ## setup
 Prior to running out vagrant file you need to install two vagrant plugin
@@ -17,9 +17,11 @@ Prior to running out vagrant file you need to install two vagrant plugin
 ## Running kubernetes cluster
 After installing all requirements and setup, to run kubernetes cluster run command
 ```
+git clone https://github.com/iamsuarvsharma/k8s-vagrant-virtualbox.git
+cd k8s-vagrant-virtualbox
 vagrant up
 ```
-Which will run 3 VM instance with 1 master and 2 nodes.
+Which will run 3 VM instance with 1 master and 2  worker nodes.
 No of nodes and some configuration can be easily modified by changing value in Vagrantfile
 Some of variable are:
 | Variable | Default value | Description |
