@@ -47,6 +47,7 @@
             daemon_reload: yes
             state: restarted
     -
-        name: enable kubelet completions  # noqa: 301
-        command:
-            cmd: echo 'source <(kubectl completion bash)' >> /home/vagrant/.bashrc
+        name: enable kubelet completions
+        lineinfile:
+            path: /home/vagrant/.bashrc
+            line: source <(kubectl completion bash)

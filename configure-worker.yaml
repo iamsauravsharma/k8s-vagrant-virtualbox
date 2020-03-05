@@ -1,6 +1,6 @@
 ---
     -
-        name: Configure nodes
+        name: Configure workers
         hosts: all
         become: true
         tasks:

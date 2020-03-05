@@ -16,6 +16,7 @@
                 name: Setup kubeconfig for vagrant user  # noqa: 301
                 command:
                     cmd: "{{ item }}"
+                    warn: false
                 with_items:
                     - mkdir -p /home/vagrant/.kube
                     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config

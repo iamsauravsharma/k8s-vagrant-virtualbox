@@ -27,9 +27,9 @@ Some of variable are:
 | Variable | Default value | Description |
 |:--------:|:-------------:|:-----------:|
 | N        | 2             | No of worker node |
-| MASTER_MEMORY | 2048     | RAM of master |
-| MASTER_CPUS   | 2        | CPU of master |
-| MASTER_DISK   | "10GB"   | Disk size of master. Can be in MB, GB or TB |
-| NODE_MEMORY   | 1024     | RAM of worker |
-| NODE_CPUS     | 1        | CPU of Worker |
-| NODE_DISK     | "10GB"   | Disk size of worker. Can be in MB, GB or TB |
+| MASTER_MEMORY   | 2048   | RAM of master |
+| MASTER_CPUS     | 2      | CPU of master |
+| MASTER_DISK     | "10GB" | Disk size of master. Can be in MB, GB or TB |
+| WORKER_MEMORY   | 1024   | RAM of worker |
+| WORKER_CPUS     | 1      | CPU of Worker |
+| WORKER_DISK     | "10GB" | Disk size of worker. Can be in MB, GB or TB |

@@ -5,9 +5,9 @@ N = 2
 MASTER_MEMORY = 2048
 MASTER_CPUS = 2
 MASTER_DISK = "10GB"
-NODE_MEMORY = 1024
-NODE_CPUS = 1
-NODE_DISK = "10GB"
+WORKER_MEMORY = 1024
+WORKER_CPUS = 1
+WORKER_DISK = "10GB"
 
 Vagrant.configure("2") do |config|
     config.vm.box = IMAGE_NAME
@@ -29,19 +29,19 @@ Vagrant.configure("2") do |config|
         end
     end
     (1..N).each do |i|
-        config.vm.define "node-#{i}" do |node|
-            node.vm.network :private_network, ip: "192.168.60.#{i + 60}"
-            node.vm.hostname = "node-#{i}"
-            node.disksize.size = NODE_DISK
-            node.vm.provider "virtualbox" do |vb|
-                vb.name = "node-#{i}"
-                vb.memory = NODE_MEMORY
-                vb.cpus = NODE_CPUS
+        config.vm.define "worker-#{i}" do |worker|
+            worker.vm.network :private_network, ip: "192.168.50.#{i + 10}"
+            worker.vm.hostname = "worker-#{i}"
+            worker.disksize.size = WORKER_DISK
+            worker.vm.provider "virtualbox" do |vb|
+                vb.name = "worker-#{i}"
+                vb.memory = WORKER_MEMORY
+                vb.cpus = WORKER_CPUS
             end
-            node.vm.provision "ansible" do |ansible|
-                ansible.playbook = "configure-node.yaml"
+            worker.vm.provision "ansible" do |ansible|
+                ansible.playbook = "configure-worker.yaml"
                 ansible.extra_vars = {
-                    node_ip: "192.168.60.#{i + 60}"
+                    node_ip: "192.168.50.#{i + 10}"
                 }
                 ansible.verbose = true
             end
