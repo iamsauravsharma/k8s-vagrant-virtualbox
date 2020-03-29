@@ -47,7 +47,7 @@
             daemon_reload: yes
             state: restarted
     -
-        name: enable kubelet completions
+        name: enable kubectl completions
         lineinfile:
             path: /home/vagrant/.bashrc
             line: source <(kubectl completion bash)
