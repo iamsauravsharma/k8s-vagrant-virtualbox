@@ -33,3 +33,10 @@ Some of variable are:
 | WORKER_MEMORY   | 1024   | RAM of worker |
 | WORKER_CPUS     | 1      | CPU of Worker |
 | WORKER_DISK     | "10GB" | Disk size of worker. Can be in MB, GB or TB |
+
+
+## Accessing kubernetes cluster
+For accessing kubernetes cluster you can ssh into k8s-master. To ssh into k8s-master run
+```
+vagrant ssh k8s-master
+```
