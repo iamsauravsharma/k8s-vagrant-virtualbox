@@ -7,11 +7,17 @@
             - import_tasks: configure-docker.yaml
             - import_tasks: configure-k8s.yaml
             -
+                name: Check if kubernetes is already initialized
+                stat:
+                    path: /etc/kubernetes/admin.conf
+                register: kubernetes_init_stat
+            -
                 name: Initialize Kubernetes cluster  # noqa: 301
                 command:
                     cmd: >-
                         kubeadm init --node-name="k8s-master" --apiserver-cert-extra-sans={{ node_ip }}
                          --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address={{ node_ip }}
+                when: not kubernetes_init_stat.stat.exists
             -
                 name: Setup kubeconfig for vagrant user  # noqa: 301
                 command:
