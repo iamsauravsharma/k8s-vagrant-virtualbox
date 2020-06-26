@@ -10,6 +10,7 @@ WORKER_CPUS = 1
 WORKER_DISK = "10GB"
 
 Vagrant.configure("2") do |config|
+    config.vagrant.plugins = ["vagrant-disksize", "vagrant-vbguest"]
     config.vm.box = IMAGE_NAME
     config.vm.define "k8s-master" do |master|
         master.vm.network :private_network, ip: "192.168.50.10"
