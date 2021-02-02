@@ -1,13 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 IMAGE_NAME = "ubuntu/bionic64"
-N = 2
+N = 1
 MASTER_MEMORY = 2048
 MASTER_CPUS = 2
-MASTER_DISK = "10GB"
+MASTER_DISK = "5GB"
 WORKER_MEMORY = 1024
 WORKER_CPUS = 1
-WORKER_DISK = "10GB"
+WORKER_DISK = "5GB"
 
 Vagrant.configure("2") do |config|
     config.vagrant.plugins = ["vagrant-disksize", "vagrant-vbguest"]
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
             vb.memory = MASTER_MEMORY
             vb.cpus = MASTER_CPUS
         end
-        master.vm.provision "ansible" do |ansible|
+        master.vm.provision "ansible_local" do |ansible|
             ansible.playbook = "configure-master.yaml"
             ansible.extra_vars = {
                 node_ip: "192.168.50.10",
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
                 vb.memory = WORKER_MEMORY
                 vb.cpus = WORKER_CPUS
             end
-            worker.vm.provision "ansible" do |ansible|
+            worker.vm.provision "ansible_local" do |ansible|
                 ansible.playbook = "configure-worker.yaml"
                 ansible.extra_vars = {
                     node_ip: "192.168.50.#{i + 10}"
