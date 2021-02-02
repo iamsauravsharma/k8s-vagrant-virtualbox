@@ -1,0 +1,22 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+      - trying
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-latest
+
+    steps:
+     - uses: actions/checkout@v2
+     - name: Install plugin
+       run: |
+        vagrant plugin install vagrant-disksize vagrant-vbguest --no-tty
+     - name: Up vagrant
+       run: |
+        vagrant up --no-tty

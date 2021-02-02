@@ -1,0 +1,15 @@
+status = [
+    "Test"
+]
+block_labels = [
+    "invalid",
+    "duplicate",
+    "blocked",
+    "WIP"
+]
+pr_status = [
+    "DCO",
+    "CommitCheck",
+    "WIP"
+]
+delete_merged_branches = true
